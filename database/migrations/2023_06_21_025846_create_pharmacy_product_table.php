@@ -23,6 +23,9 @@ class CreatePharmacyProductTable extends Migration
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products');
+
+            // Set the composite primary key using product_id and pharmacy_id
+            $table->unique(['product_id', 'pharmacy_id']);
         });
     }
 

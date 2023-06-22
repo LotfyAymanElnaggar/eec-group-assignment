@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Pharmacy;
+use App\Models\Product;
 
 class PharmacyRepository
 {
@@ -29,6 +30,14 @@ class PharmacyRepository
     public function delete($id)
     {
         return Pharmacy::find($id)->delete();
+    }
+
+    public function attachProduct(Pharmacy $pharmacy, int $productId, float $price, int $quantity)
+    {
+        $pharmacy->products()->attach($productId, [
+            'price' => $price,
+            'quantity' => $quantity
+        ]);
     }
 
     public function getPharmacyProducts($pharmacyId)

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\PharmacyService;
 use Illuminate\Http\Request;
+use App\Repositories\PharmacyRepository;
+use Illuminate\Database\QueryException;
 
 class PharmacyApiController extends Controller
 {
@@ -49,5 +51,48 @@ class PharmacyApiController extends Controller
     {
         $products = $this->pharmacyService->getPharmacyProducts($pharmacyId);
         return response()->json($products);
+    }
+
+    public function attachProduct(Request $request, PharmacyRepository $pharmacyRepo, $pharmacyId)
+    {
+        $productId = $request->input('product_id');
+        $price = $request->input('price');
+        $quantity = $request->input('quantity');
+
+        $pharmacy = $pharmacyRepo->find($pharmacyId);
+
+        if (!$pharmacy) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Pharmacy or product not found.',
+            ], 404);
+        }
+
+        try {
+            $pharmacyRepo->attachProduct($pharmacy, $productId, $price, $quantity);
+        } catch (QueryException  $e) {
+            // Handle cases where an SQL error occurs, such as a duplicate key constraint violation
+            if ($e->getCode() == 23000) {
+                return $e;
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No product with this Id or The product is already attached to the pharmacy.',
+                ], 409);
+            }
+
+            // Handle other database errors
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occurred while attaching the product to the pharmacy.',
+            ], 500);
+        } catch (\Exception $e) {
+            // Handle other unexpected errors
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred.',
+            ], 500);
+        }
+
+        return response()->json(['message' => 'Product attached to pharmacy successfully'], 200);
     }
 }

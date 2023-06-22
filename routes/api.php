@@ -10,3 +10,4 @@ Route::apiResource('products', ProductApiController::class);
 
 Route::apiResource('pharmacies', PharmacyApiController::class);
 Route::get('pharmacies/{pharmacyId}/products', [PharmacyApiController::class, 'pharmacyProducts']);
+Route::post('pharmacies/{pharmacyId}/attach-product', [PharmacyApiController::class, 'attachProduct'])->name('pharmacy.attachProduct');

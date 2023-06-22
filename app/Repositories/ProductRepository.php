@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use App\Models\Pharmacy;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProductRepository
@@ -30,6 +31,14 @@ class ProductRepository
     public function delete($id)
     {
         return Product::find($id)->delete();
+    }
+
+    public function attachPharmacy(Product $product, Pharmacy $pharmacy, float $price, int $quantity)
+    {
+        $product->pharmacies()->attach($pharmacy->id, [
+            'price' => $price,
+            'quantity' => $quantity
+        ]);
     }
 
     public function findCheapestPharmacies($productId, $limit = 5): Collection
