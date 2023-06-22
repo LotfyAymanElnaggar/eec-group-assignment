@@ -50,4 +50,12 @@ class ProductApiController extends Controller
         $pharmacies = $this->productService->getCheapestPharmacies($productId);
         return response()->json($pharmacies);
     }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $products = $this->productService->searchProductsByName($searchTerm);
+
+        return response()->json(['products' => $products]);
+    }
 }

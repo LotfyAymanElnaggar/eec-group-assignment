@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\ProductRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductService
 {
@@ -13,7 +14,7 @@ class ProductService
         $this->productRepository = $productRepository;
     }
 
-    public function getAllProducts()
+    public function getAllProducts(): Collection
     {
         return $this->productRepository->all();
     }
@@ -38,8 +39,13 @@ class ProductService
         return $this->productRepository->delete($id);
     }
 
-    public function getCheapestPharmacies($productId, $limit = 5)
+    public function getCheapestPharmacies($productId, $limit = 5): Collection
     {
         return $this->productRepository->findCheapestPharmacies($productId, $limit);
+    }
+
+    public function searchProductsByName(string $searchTerm): Collection
+    {
+        return $this->productRepository->searchProductsByName($searchTerm);
     }
 }

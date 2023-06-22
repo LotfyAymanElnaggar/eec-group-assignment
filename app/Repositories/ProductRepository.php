@@ -3,10 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProductRepository
 {
-    public function all()
+    public function all(): Collection
     {
         return Product::all();
     }
@@ -31,7 +32,7 @@ class ProductRepository
         return Product::find($id)->delete();
     }
 
-    public function findCheapestPharmacies($productId, $limit = 5)
+    public function findCheapestPharmacies($productId, $limit = 5): Collection
     {
         return Product::find($productId)
             ->pharmacies()
@@ -39,4 +40,12 @@ class ProductRepository
             ->take($limit)
             ->get();
     }
+
+    public function searchProductsByName(string $searchTerm): Collection
+    {
+        return Product::query()
+            ->where('title', 'LIKE', '%' . $searchTerm . '%')
+            ->get();
+    }
+
 }

@@ -61,4 +61,12 @@ class ProductController extends Controller
         $pharmacies = $this->productService->getCheapestPharmacies($productId);
         return view('products.cheapest_pharmacies', compact('pharmacies'));
     }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $products = $this->productService->searchProductsByName($searchTerm);
+
+        return view('products.search', ['products' => $products]);
+    }
 }
