@@ -13,9 +13,3 @@ use App\Http\Controllers\ProductController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('products/search', [ProductController::class, 'search'])->name('products.search');
