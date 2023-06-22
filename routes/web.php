@@ -13,3 +13,11 @@ use App\Http\Controllers\ProductController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+
+Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.'], function () {
+    Route::get('/', function () {
+        return view('dashboard.layouts.layout');
+    })->name('index');
+});
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
