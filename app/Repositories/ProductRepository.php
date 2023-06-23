@@ -63,4 +63,16 @@ class ProductRepository
             ->get();
     }
 
+    public function search(string $search = '', int $perPage = 10, int $page = 1): LengthAwarePaginator
+    {
+        $query = Product::query();
+
+        if (!empty($search)) {
+            $query->where('title', 'LIKE', "%{$search}%")
+                ->orWhere('description', 'LIKE', "%{$search}%");
+        }
+
+        return $query->paginate($perPage, ['*'], 'page', $page);
+    }
+
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ProductApiController extends Controller
 {
@@ -15,11 +16,41 @@ class ProductApiController extends Controller
         $this->productService = $productService;
     }
 
-    public function index(Request $request)
+    public function index(Request $request, ProductService $productService)
     {
-        $perPage = $request->input('perPage', 15);
-        $products = $this->productService->getAllProducts($perPage);
-        return response()->json($products);
+        $validatedData = $request->validate([
+            'perPage' => [
+                'sometimes',
+                'required',
+                'integer',
+                'min:1',
+                'max:100'
+            ],
+            'search' => [
+                'nullable',
+                'string',
+                'max:255'
+            ],
+            'page' => [
+                'sometimes',
+                'required',
+                'integer',
+                'min:1'
+            ],
+        ]);
+
+        $perPage = $validatedData['perPage'] ?? 10;
+        $search = $validatedData['search'] ?? '';
+        $page = $validatedData['page'] ?? 1;
+
+        $products = $productService->search($search, $perPage, $page);
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $products->total(),
+            'recordsFiltered' => $products->total(),
+            'data' => $products->items()
+        ]);
     }
 
     public function store(Request $request)

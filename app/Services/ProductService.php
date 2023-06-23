@@ -49,4 +49,9 @@ class ProductService
     {
         return $this->productRepository->searchProductsByName($searchTerm);
     }
+
+    public function search(string $search = '', int $perPage = 10, int $page = 1): LengthAwarePaginator
+    {
+        return $this->productRepository->search($search, $perPage, $page);
+    }
 }
