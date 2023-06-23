@@ -103,37 +103,43 @@
                 }
             }
         });
-    });
 
-    // Handle page length change
-    $('#dataTable_length select').on('change', function() {
-        dataTable.page.len($(this).val()).draw();
-    });
+        // Handle page length change
+        $('#dataTable_length select').on('change', function() {
+            dataTable.page.len($(this).val()).draw();
+        });
 
 
-    // Handle the "Add Product" button click event
-    $('#add-product-btn').on('click', function() {
-        // Replace with your page URL to create a new product
-        window.location.href = '/products/create';
-    });
+        // Handle the "Add Product" button click event
+        $('#add-product-btn').on('click', function() {
+            // Replace with your page URL to create a new product
+            window.location.href = '/products/create';
+        });
 
-    // Handle the "Edit" button click event
-    $('#dataTable').on('click', '.edit-product-btn', function() {
-        let productId = $(this).data('id');
-        // Replace with your page URL to edit the specified product
-        window.location.href = '/products/edit/' + productId;
-    });
+        // Handle the "Edit" button click event
+        $('#dataTable').on('click', '.edit-product-btn', function() {
+            let productId = $(this).data('id');
+            // Replace with your page URL to edit the specified product
+            window.location.href = '/products/edit/' + productId;
+        });
 
-    // Handle the "Delete" button click event
-    $('#dataTable').on('click', '.delete-product-btn', function() {
-        let productId = $(this).data('id');
-        // Replace with your API route to delete the specified product
-        $.ajax({
-            url: '/api/products/' + productId,
-            type: 'DELETE',
-            success: function() {
-                productsTable.ajax.reload();
-            }
+        // Handle the "Delete" button click event
+        $('#dataTable').on('click', '.delete-product-btn', function() {
+            let productId = $(this).data('id');
+            // Replace with your API route to delete the specified product
+            $.ajax({
+                url: '/api/products/' + productId,
+                type: 'DELETE',
+                success: function() {
+                    dataTable.ajax.reload();
+                    // Display success message
+                    alert(data.message);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // Display error message
+                    alert(jqXHR.responseJSON.message);
+                }
+            });
         });
     });
 </script>
