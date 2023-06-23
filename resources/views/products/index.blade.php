@@ -3,17 +3,30 @@
 @section('title', 'Products')
 
 @section('content')
-<!-- Your table element -->
-<table id="dataTable" class="display" style="width:100%">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-</table>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Products</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <!-- Your table element -->
+            <table class="table table-bordered" id="dataTable" class="display" style="width:100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- The product data will be populated here via JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
