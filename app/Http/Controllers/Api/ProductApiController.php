@@ -15,9 +15,10 @@ class ProductApiController extends Controller
         $this->productService = $productService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productService->getAllProducts();
+        $perPage = $request->input('perPage', 15);
+        $products = $this->productService->getAllProducts($perPage);
         return response()->json($products);
     }
 

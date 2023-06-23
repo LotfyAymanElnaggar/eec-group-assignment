@@ -5,12 +5,18 @@ namespace App\Repositories;
 use App\Models\Product;
 use App\Models\Pharmacy;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductRepository
 {
     public function all(): Collection
     {
         return Product::all();
+    }
+
+    public function getAll($perPage = null): LengthAwarePaginator
+    {
+        return $perPage ? Product::paginate($perPage) : Product::get();
     }
 
     public function find($id)
