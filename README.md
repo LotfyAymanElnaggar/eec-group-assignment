@@ -14,25 +14,25 @@ This project is an EEC Group Assignment that demonstrates a basic Laravel 10 app
 
 ## Installation
 
-1. Clone the repository: ``git clone https://github.com/LotfyAymanElnaggar/eec-group-assignment.git``
+1. Clone the repository: `git clone https://github.com/LotfyAymanElnaggar/eec-group-assignment.git`
 
-2. Change to the project directory: cd eec-group-assignment
+2. Change to the project directory: `cd eec-group-assignment`
 
-3. Install the PHP dependencies: composer install
+3. Install the PHP dependencies: `composer install`
 
-4. Install the JavaScript dependencies: npm install
+4. Install the JavaScript dependencies: `npm install`
 
 5. Copy the `.env.example` file to create a `.env` file: cp .env.example .env
 
 6. Update the `.env` file with your database configuration and other environment-specific settings.
 
-7. Generate a new application key: php artisan key:generate
+7. Generate a new application key: `php artisan key:generate`
 
-8. Run the database migrations: php artisan migrate
+8. Run the database migrations: `php artisan migrate`
 
-9. (Optional) Seed the database with sample data: php artisan db:seed
+9. (Optional) Seed the database with sample data: `php artisan db:seed`
 
-10. Start the local development server: php artisan serve
+10. Start the local development server: `php artisan serve`
 
 Now, you can visit the application at `http://localhost:8000`.
 
