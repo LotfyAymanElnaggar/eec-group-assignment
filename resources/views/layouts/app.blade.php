@@ -40,9 +40,8 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="/products">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Products</span></a>
             </li>

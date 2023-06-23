@@ -49,7 +49,10 @@
                     }
                 },
                 {
-                    data: 'title'
+                    data: 'title',
+                    render: function(data, type, row) {
+                        return '<a href="/products/' + row.id + '">' + data + '</a>';
+                    }
                 },
                 {
                     data: 'description'
