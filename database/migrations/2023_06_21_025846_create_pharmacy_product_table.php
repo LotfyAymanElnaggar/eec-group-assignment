@@ -18,11 +18,13 @@ class CreatePharmacyProductTable extends Migration
 
             $table->foreign('pharmacy_id')
                 ->references('id')
-                ->on('pharmacies');
+                ->on('pharmacies')
+                ->onDelete('cascade');
 
             $table->foreign('product_id')
                 ->references('id')
-                ->on('products');
+                ->on('products')
+                ->onDelete('cascade');
 
             // Set the composite primary key using product_id and pharmacy_id
             $table->unique(['product_id', 'pharmacy_id']);

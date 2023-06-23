@@ -37,6 +37,14 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
+
+            <li class="nav-item active">
+                <a class="nav-link" href="/pharmacy">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Pharmacies</span></a>
+            </li>
+
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 

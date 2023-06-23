@@ -6,7 +6,8 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Products</h6>
+        <h6 class="m-0 font-weight-bold text-primary"><span id="add-product-btn" class="action-icon btn btn-sm btn-primary"><i class="fas fa-plus"></i></span> Products</h6>
+
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -18,6 +19,7 @@
                         <th>Image</th>
                         <th>Title</th>
                         <th>Description</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,6 +58,19 @@
                 },
                 {
                     data: 'description'
+                },
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return `
+                        <button class="btn btn-primary btn-sm edit-product-btn" data-id="${row.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-danger btn-sm delete-product-btn" data-id="${row.id}">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    `;
+                    }
                 }
             ],
             serverSide: true,
@@ -88,10 +103,37 @@
                 }
             }
         });
+    });
 
-        // Handle page length change
-        $('#dataTable_length select').on('change', function() {
-            dataTable.page.len($(this).val()).draw();
+    // Handle page length change
+    $('#dataTable_length select').on('change', function() {
+        dataTable.page.len($(this).val()).draw();
+    });
+
+
+    // Handle the "Add Product" button click event
+    $('#add-product-btn').on('click', function() {
+        // Replace with your page URL to create a new product
+        window.location.href = '/products/create';
+    });
+
+    // Handle the "Edit" button click event
+    $('#dataTable').on('click', '.edit-product-btn', function() {
+        let productId = $(this).data('id');
+        // Replace with your page URL to edit the specified product
+        window.location.href = '/products/edit/' + productId;
+    });
+
+    // Handle the "Delete" button click event
+    $('#dataTable').on('click', '.delete-product-btn', function() {
+        let productId = $(this).data('id');
+        // Replace with your API route to delete the specified product
+        $.ajax({
+            url: '/api/products/' + productId,
+            type: 'DELETE',
+            success: function() {
+                productsTable.ajax.reload();
+            }
         });
     });
 </script>
