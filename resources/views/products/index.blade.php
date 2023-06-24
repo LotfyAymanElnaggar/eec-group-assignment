@@ -132,8 +132,6 @@
                 type: 'DELETE',
                 success: function() {
                     dataTable.ajax.reload();
-                    // Display success message
-                    alert(data.message);
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     // Display error message
