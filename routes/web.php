@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\PharmacyController;
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{id}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::get('/products/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
 
 Route::get('/pharmacies', [PharmacyController::class, 'index'])->name('pharmacies.index');
 Route::get('/pharmacies/{id}', [PharmacyController::class, 'show'])->name('pharmacies.show');

@@ -24,4 +24,17 @@ class ProductController extends Controller
         $product = $this->productService->getProductById($id);
         return view('products.show', compact('product'));
     }
+
+    public function create()
+    {
+        $pageTitle = "Add Product";
+        return view('products.form', compact('pageTitle'));
+    }
+
+    public function edit($id)
+    {
+        $product = $this->productService->getProductById($id);
+        $pageTitle = "Edit Product";
+        return view('products.form', compact('product', 'pageTitle'));
+    }
 }

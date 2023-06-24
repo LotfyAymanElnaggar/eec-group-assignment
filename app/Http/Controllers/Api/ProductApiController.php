@@ -65,9 +65,29 @@ class ProductApiController extends Controller
         return response()->json($product);
     }
 
-    public function update(Request $request, $id)
+    public function update(\Illuminate\Http\Request $request, $id)
     {
-        $this->productService->updateProduct($id, $request->all());
+
+        return $request;
+
+        // Validate the request
+        $request->validate([
+            'title' => 'nullable|string',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $productData = $request->all();
+
+        return $request;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/products');
+            // Save the image path to the product's data array
+            $productData['image'] = substr($imagePath, strlen('public/'));
+        }
+
+        $this->productService->updateProduct($id, $productData);
         return response()->json(['message' => 'Product updated successfully']);
     }
 

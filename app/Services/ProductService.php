@@ -22,7 +22,14 @@ class ProductService
 
     public function getProductById($id)
     {
-        return $this->productRepository->find($id);
+        $product = $this->productRepository->find($id);
+        if (!$product) {
+            return response()->json([
+                'message' => 'Product not found.',
+            ], 404);
+        }
+        $pageTitle = "Edit Product";
+        return view('products.form', compact('product', 'pageTitle'));
     }
 
     public function createProduct($data)
