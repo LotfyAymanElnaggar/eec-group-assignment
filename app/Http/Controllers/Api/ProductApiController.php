@@ -55,7 +55,16 @@ class ProductApiController extends Controller
 
     public function store(Request $request)
     {
-        $product = $this->productService->createProduct($request->all());
+
+        // Validate the request
+        $request->validate([
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $productData = $request->all();
+        $product = $this->productService->createProduct($productData);
         return response()->json($product, 201);
     }
 
@@ -65,21 +74,17 @@ class ProductApiController extends Controller
         return response()->json($product);
     }
 
-    public function update(\Illuminate\Http\Request $request, $id)
+    public function update(Request $request, $id)
     {
-
-        return $request;
-
+        return $request->all();
         // Validate the request
         $request->validate([
-            'title' => 'nullable|string',
+            'title' => 'required|string',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $productData = $request->all();
-
-        return $request;
+        $productData = [$request];
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/products');

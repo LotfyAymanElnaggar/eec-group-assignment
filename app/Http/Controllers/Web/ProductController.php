@@ -22,6 +22,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = $this->productService->getProductById($id);
+        $pageTitle = 'Product Details';
         return view('products.show', compact('product'));
     }
 

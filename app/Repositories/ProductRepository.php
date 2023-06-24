@@ -19,7 +19,7 @@ class ProductRepository
         return $perPage ? Product::paginate($perPage) : Product::get();
     }
 
-    public function find($id)
+    public function find($id): Product
     {
         return Product::find($id);
     }
