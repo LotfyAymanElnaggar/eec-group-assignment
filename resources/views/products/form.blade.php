@@ -40,26 +40,30 @@
         const productName = $('#product-name').val();
         const productDescription = $('#product-description').val();
 
-
-
         const productData = new FormData();
         productData.append('title', productName);
         productData.append('description', productDescription);
         productData.append('_token', $('input[name="_token"]').val());
 
+
+        data = {
+            title: productName,
+            description: productDescription
+        };
+
+
         const productImage = document.getElementById('product-image').files[0];
         if (productImage) {
             productData.append('image', productImage);
         }
-        $.ajaxSetup({
+        const ajaxConfig = {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        const ajaxConfig = {
+            },
             type: 'PUT',
             url: `/api/products/${productId}`,
-            data: productData,
+            contentType: "application/json",
+            data: JSON.stringify(data),
             processData: false,
             contentType: false,
             success: function() {
